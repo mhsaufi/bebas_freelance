@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\HomeController;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -12,7 +13,43 @@ class MailingController extends Controller
 {
     public function index(Request $request){
 
-    	return view('inbox.index');
+        $inbox = Db::table('bebas_message')->where('recipient',Auth::id())->paginate(15);
+
+        // foreach($inbox as $app){
+
+        //     $app_date = Carbon::parse($app->msg_date);
+        //     $app->msg_date = $app_date->toFormattedDateString();
+
+        // }
+
+        $data['inbox'] = $inbox;
+
+
+        $unr = new HomeController;
+        $data['unread'] = $unr->getUnread();
+
+    	return view('inbox.index',$data);
+
+    }
+
+    public function viewMail(Request $request){
+
+        $msg_id = $request->input('id');
+
+        $msg_info = Db::table('bebas_message')->where('msg_id',$msg_id)->first();
+
+        $app_date = Carbon::parse($msg_info->msg_date);
+        $msg_info->msg_date = $app_date->toFormattedDateString();
+
+        $data['msg'] = $msg_info;
+
+        Db::table('bebas_message')->where('msg_id',$msg_id)->update(['msg_status'=>0]);
+
+        
+        $unr = new HomeController;
+        $data['unread'] = $unr->getUnread();
+
+        return view('inbox.viewmail',$data);
 
     }
 

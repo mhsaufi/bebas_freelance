@@ -29,32 +29,14 @@
           
         </div>
         <div class="col-lg-10 col-md-10 col-xs-12 col-sm-12">
-          <table class="table table-striped">
-            <thead>
-              <tr>
-                <th>Sender</th>
-                <th>Subject</th>
-                <th>Date</th>
-              </tr>
-            </thead>
-            <tbody>
-              <?php $__currentLoopData = $inbox; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $msg): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-              <?php if($msg->sender == 0){$msg->sender = 'Bebas Platform';} ?>
-              <?php if($msg->msg_status == 1): ?>
-                <tr class="msg msg-unread" onclick="viewmsg('<?php echo $msg->msg_id; ?>')">
-              <?php else: ?>
-                <tr class="msg" onclick="viewmsg('<?php echo $msg->msg_id; ?>')">
-              <?php endif; ?>
-                  <td><?php echo $msg->sender; ?></td>
-                  <td><?php echo $msg->msg_subject; ?></td>
-                  <td><?php echo $msg->msg_date; ?></td>
-                </tr>
+          
+          <button class="btn btn-default" title="back to inbox" onclick="back()"><i class="fa fa-arrow-left"></i></button>
+          <br>
+          <h4><?php echo $msg->msg_subject; ?></h4>
+          <hr>
+          <?php echo $msg->msg_content; ?>
 
-              <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-            </tbody>
-          </table>
-          <?php echo $inbox->links(); ?>
-
+          <hr>
         </div>
       </div>
   	</div>
@@ -67,9 +49,9 @@
   <?php echo $__env->make('layouts.bebas-inner-scripts', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 
   <script>
-    function viewmsg(msg_id){
+    function back(){
 
-      var url = '<?php echo url('/message'); ?>'+'?id='+msg_id;
+      var url = '<?php echo url('/inbox'); ?>';
 
       window.location.replace(url);
 

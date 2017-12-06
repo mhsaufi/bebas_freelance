@@ -29,31 +29,13 @@
           
         </div>
         <div class="col-lg-10 col-md-10 col-xs-12 col-sm-12">
-          <table class="table table-striped">
-            <thead>
-              <tr>
-                <th>Sender</th>
-                <th>Subject</th>
-                <th>Date</th>
-              </tr>
-            </thead>
-            <tbody>
-              @foreach($inbox as $msg)
-              <?php if($msg->sender == 0){$msg->sender = 'Bebas Platform';} ?>
-              @if($msg->msg_status == 1)
-                <tr class="msg msg-unread" onclick="viewmsg('{!! $msg->msg_id !!}')">
-              @else
-                <tr class="msg" onclick="viewmsg('{!! $msg->msg_id !!}')">
-              @endif
-                  <td>{!! $msg->sender !!}</td>
-                  <td>{!! $msg->msg_subject !!}</td>
-                  <td>{!! $msg->msg_date !!}</td>
-                </tr>
-
-              @endforeach
-            </tbody>
-          </table>
-          {!! $inbox->links() !!}
+          
+          <button class="btn btn-default" title="back to inbox" onclick="back()"><i class="fa fa-arrow-left"></i></button>
+          <br>
+          <h4>{!! $msg->msg_subject !!}</h4>
+          <hr>
+          {!! $msg->msg_content !!}
+          <hr>
         </div>
       </div>
   	</div>
@@ -66,9 +48,9 @@
   @include('layouts.bebas-inner-scripts')
 
   <script>
-    function viewmsg(msg_id){
+    function back(){
 
-      var url = '{!! url('/message') !!}'+'?id='+msg_id;
+      var url = '{!! url('/inbox') !!}';
 
       window.location.replace(url);
 

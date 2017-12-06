@@ -78,5 +78,6 @@ Route::group(['middleware'=>'auth'],function(){
 
 	// MAIL
 	Route::get('/inbox',					'MailingController@index');
+	Route::get('/message',					'MailingController@viewMail');
 
 });

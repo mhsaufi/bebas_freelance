@@ -1,3 +1,16 @@
+<?php
+  if(isset($unread)){
+
+    if($unread != 0){
+      $num = $unread;
+    }else{
+      $num = '';
+    }
+  }else{
+    $num = '';
+  }
+?>
+
 <header class="main-header" style="position: fixed;top: 0;width: 100%;">
 
     <a href="{!! url('/home') !!}" class="logo">
@@ -72,7 +85,7 @@
 
           <li class="messages-menu <?php if($index == 3){echo "active";} ?>">
             <a href="{!! url('/inbox') !!}">
-              <i class="fa fa-envelope"></i> Inbox
+              <i class="fa fa-envelope"></i> Inbox <span class="badge">{{ $num }}</span>
             </a>
           </li>
 

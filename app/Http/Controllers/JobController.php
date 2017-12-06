@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\MailingController;
+use App\Http\Controllers\HomeController;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,6 +16,9 @@ class JobController extends Controller
     	$job_types = DB::table('type_job_bebas')->get();
 
         $data['job_types'] = $job_types;
+
+        $unr = new HomeController;
+        $data['unread'] = $unr->getUnread();
 
     	return view('pages.createjob',$data);
     }
@@ -89,6 +93,10 @@ class JobController extends Controller
 
         $data['job'] = $job;
 
+
+        $unr = new HomeController;
+        $data['unread'] = $unr->getUnread();
+
         return view('pages.jobview',$data);
     }
 
@@ -119,6 +127,10 @@ class JobController extends Controller
         }
 
         $data['jobs_count'] = $jobs_count;
+
+
+        $unr = new HomeController;
+        $data['unread'] = $unr->getUnread();
 
         // print_r($jobs);
 
@@ -177,6 +189,10 @@ class JobController extends Controller
             $data['taken'] = $taken;
         }
 
+
+        $unr = new HomeController;
+        $data['unread'] = $unr->getUnread();
+
     	return view('pages.myjob',$data);
     }
 
@@ -228,6 +244,10 @@ class JobController extends Controller
             $data['issues'] = $issues;
         }
 
+
+        $unr = new HomeController;
+        $data['unread'] = $unr->getUnread();
+
         return view('pages.progressoverview',$data);
 
     }
@@ -267,6 +287,10 @@ class JobController extends Controller
         }
 
         $data['job'] = $jobs;
+
+
+        $unr = new HomeController;
+        $data['unread'] = $unr->getUnread();
 
         return view('pages.jobstatus',$data);
     }
@@ -325,6 +349,10 @@ class JobController extends Controller
         $request->session()->put('job',$job_id);
 
         $data['job_id'] = $job_id;
+
+        
+        $unr = new HomeController;
+        $data['unread'] = $unr->getUnread();
 
         return view('pages.markcomplete',$data);
     }

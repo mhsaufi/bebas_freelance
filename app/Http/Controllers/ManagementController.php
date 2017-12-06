@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\HomeController;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -94,6 +95,10 @@ class ManagementController extends Controller
 
         // ------------------------------------------------------------------------------
 
+
+        $unr = new HomeController;
+        $data['unread'] = $unr->getUnread();
+
     	return view('manage.index',$data);
     }
 
@@ -183,6 +188,10 @@ class ManagementController extends Controller
         }
 
         // ------------------------------------------------------------------------------
+
+        
+        $unr = new HomeController;
+        $data['unread'] = $unr->getUnread();
 
     	return view('manage.credit',$data);
     }

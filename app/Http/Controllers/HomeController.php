@@ -26,7 +26,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $data['unread'] = $this->getUnread();
+        return view('home',$data);
     }
 
     public function profile(){
@@ -38,6 +39,15 @@ class HomeController extends Controller
 
         $data['info'] = $info;
 
+        $data['unread'] = $this->getUnread();
+
         return view('profile',$data);
+    }
+
+    public function getUnread(){
+
+        $unread = Db::table('bebas_message')->where('recipient',Auth::id())->where('msg_status',1)->count();
+
+        return $unread;
     }
 }

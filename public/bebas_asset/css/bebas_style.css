@@ -392,6 +392,18 @@ body {
 	box-shadow: 0 0 8px grey;
 }
 
+.msg {
+	cursor: pointer;
+}
+
+.msg:hover {
+	background-color: #e1e1e1;
+}
+
+.msg-unread {
+	font-weight: bold;
+}
+
 .welcome-bg {
     background-repeat: no-repeat;
     background-size: cover;

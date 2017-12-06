@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\HomeController;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -33,10 +34,18 @@ class PortfolioController extends Controller
 
     	}
 
+
+        $unr = new HomeController;
+        $data['unread'] = $unr->getUnread();
+
     	return view('portfolio.index',$data);
     }
 
     public function createNewPortfolio(Request $request){
+
+
+        $unr = new HomeController;
+        $data['unread'] = $unr->getUnread();
 
     	return view('portfolio.createnew');
 
@@ -124,6 +133,10 @@ class PortfolioController extends Controller
 
     	}
 
+
+        $unr = new HomeController;
+        $data['unread'] = $unr->getUnread();
+
     	return view('portfolio.userportfolio',$data);
 
     }
@@ -139,6 +152,10 @@ class PortfolioController extends Controller
     				->where('port_id',$port_id)->first();
 
     	$data['portfolio'] = $portfolio;
+
+        
+        $unr = new HomeController;
+        $data['unread'] = $unr->getUnread();
 
     	return view('portfolio.reviewportfolio',$data);
     }

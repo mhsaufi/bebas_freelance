@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\MailingController;
+use App\Http\Controllers\HomeController;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -32,6 +33,9 @@ class ApplicationController extends Controller
             $data['applications'] = $applications;
 
     	}
+
+        $unr = new HomeController;
+        $data['unread'] = $unr->getUnread();
 
     	return view('pages.application',$data);
     }
@@ -80,6 +84,10 @@ class ApplicationController extends Controller
 
     	}
 
+
+        $unr = new HomeController;
+        $data['unread'] = $unr->getUnread();
+
     	return view('pages.overview',$data);
     }
 
@@ -109,6 +117,10 @@ class ApplicationController extends Controller
         $job_id = $request->session()->get('job','');
 
         $data['job_id'] = $job_id;
+
+        
+        $unr = new HomeController;
+        $data['unread'] = $unr->getUnread();
 
         return view('pages.applicationaccept',$data);
     }
