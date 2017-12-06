@@ -26,6 +26,16 @@ class HomeController extends Controller
      */
     public function index()
     {
+
+        $freelancers = Db::table('portfolio_user_bebas')
+                        ->join('users','portfolio_user_bebas.user_id','=','users.id')
+                        ->orderBy('portfolio_user_bebas.created_at')
+                        ->paginate(30);
+
+        $data['freelancers'] = $freelancers;
+
+        // print_r($freelancers);
+
         $data['unread'] = $this->getUnread();
         return view('home',$data);
     }
@@ -42,6 +52,57 @@ class HomeController extends Controller
         $data['unread'] = $this->getUnread();
 
         return view('profile',$data);
+    }
+
+    public function editprofile(){
+
+        return view('editprofile');
+    }
+
+    public function uploadProfilePicture(Request $request){
+
+        $files = $request->file('file');
+
+        $now = Carbon::now();
+
+        $long_file_name = '';
+        $i = 0;
+
+        foreach($files as $file)
+        {
+            $file_name = $file->getClientOriginalName();
+
+            if($i <> 0)
+            {
+                $long_file_name .= '|';
+            }
+
+            $long_file_name .= $file_name;
+
+            $i++;
+        }
+
+        Db::table('users')->where('id',Auth::id())->update(['img'=>$long_file_name]); 
+
+        foreach($files as $file)
+        {
+            $file_name = $file->getClientOriginalName();
+
+            $file_store = $file->storeAs('profilepicture/'.Auth::id(),$file_name); // Store File
+
+        }
+
+    }
+
+    public function updateProfile(Request $request){
+
+        $name = $request->input('name');
+        $describe = $request->input('describe');
+        $email = $requst->input('email');
+        $phone = $request->input('phone');
+
+        Db::table('users')->where('id',Auth::id())->update(['name'=>$name,'details'=>$describe,'phone'=>$phone,'email'=>$email]);
+
     }
 
     public function getUnread(){

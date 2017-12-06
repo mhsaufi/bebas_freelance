@@ -400,5 +400,10 @@ class JobController extends Controller
 
         Db::table('job_bebas')->where('job_id',$job_id)->update(['job_final_attach_id'=>$attach_id,'js_id'=>3]);
 
+        $job_info = Db::table('job_bebas')->where('job_id',$job_id)->first();
+
+        $mail = new MailingController;
+        $mail->mailComplete($job_info->job_creator,$job_info->job_name);
+
     }
 }

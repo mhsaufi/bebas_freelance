@@ -82,4 +82,87 @@ class MailingController extends Controller
         });
 
     }
+
+    public function mailConfirmAccept($user,$job){
+
+        $user_info = Db::table('users')->where('id',$user)->first();
+
+        $subject = 'BEBAS Accepted Application';
+        // $user_mail = $user_info->email;
+        $user_email = 'amrin317@gmail.com';
+        // $user_email = 'habibmohdsaufi@gmail.com';
+
+        $mail_content = '';
+
+        $mail_content .= '<h4>Hi, dear '.$user_info->name.'</h4><br><br>';
+        $mail_content .= '<p>We are glad to inform you that your application for job titled <b><em>'.$job.'</em></b>,';
+        $mail_content .= 'has been accepted by the owner.</p>';
+        $mail_content .= '<p><br>Go to MyJob tab to check either your application is accepted or not. Once accepted,<br>';
+        $mail_content .= 'you can expect to see that job showed up within your taken job section.</p><br><br><br>';
+        $mail_content .= '<p>Thank you</p><br><br>';
+
+        Db::table('bebas_message')->insert(['recipient'=>$user,'msg_subject'=>$subject,'msg_content'=>$mail_content,'sender'=>0,'msg_status'=>1]);
+
+        Mail::send('mail.bebas_mail',['mail'=>$mail_content], function ($message) use ($subject,$user_email){
+
+            $message->from('bebas@customerservice.com.my', 'BEBAS');
+
+            $message->to($user_email)->subject($subject);
+        });
+
+    }
+
+    public function mailComplete($user,$job){
+
+        $user_info = Db::table('users')->where('id',$user)->first();
+
+        $subject = 'BEBAS Completed Job';
+        // $user_mail = $user_info->email;
+        $user_email = 'amrin317@gmail.com';
+        // $user_email = 'habibmohdsaufi@gmail.com';
+        // $user_email = 'faizrazak12.my@gmail.com';
+
+        $mail_content = '';
+
+        $mail_content .= '<h4>Hi, dear '.$user_info->name.'</h4><br><br>';
+        $mail_content .= '<p>We are glad to inform you that your job titled <b><em>'.$job.'</em></b>,';
+        $mail_content .= 'has been completed by the the client.</p>';
+        $mail_content .= '<p><br>Go to MyJob tab to check <br>';
+        $mail_content .= '<p>Thank you</p><br><br>';
+
+        Db::table('bebas_message')->insert(['recipient'=>$user,'msg_subject'=>$subject,'msg_content'=>$mail_content,'sender'=>0,'msg_status'=>1]);
+
+        Mail::send('mail.bebas_mail',['mail'=>$mail_content], function ($message) use ($subject,$user_email){
+
+            $message->from('bebas@customerservice.com.my', 'BEBAS');
+
+            $message->to($user_email)->subject($subject);
+        });
+
+
+    }
+
+    public function composeNew(Request $request){
+
+        $unr = new HomeController;
+        $data['unread'] = $unr->getUnread();
+
+        return view('inbox.compose',$data);
+
+    }
+
+    public function sendmail(Request $request){
+
+        $mail_content = $request->input('content');
+        $user_email = $request->input('email');
+        $subject = $request->input('subject');
+
+        Mail::send('mail.bebas_mail',['mail'=>$mail_content], function ($message) use ($subject,$user_email){
+
+            $message->from('bebas@customerservice.com.my', 'BEBAS');
+
+            $message->to($user_email)->subject($subject);
+        });
+
+    }
 }

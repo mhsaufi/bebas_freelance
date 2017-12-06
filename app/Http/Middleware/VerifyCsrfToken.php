@@ -21,5 +21,7 @@ class VerifyCsrfToken extends Middleware
         '/postissue',
         '/markpaid',
         '/rateclient',
+        '/sendemail',
+        '/updateprofile',
     ];
 }

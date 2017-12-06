@@ -23,6 +23,12 @@ Route::group(['middleware'=>'auth'],function(){
 
 	Route::get('/home', 'HomeController@index')->name('home');
 	Route::get('/profile',	'HomeController@profile');
+	Route::get('/editprofile', 'HomeController@editprofile');
+	Route::post('/updateprofile',	'HomeController@updateProfile');
+	Route::post('/upload_dp',		'HomeController@uploadProfilePicture');
+
+	Route::get('/viewportfolio',	'PortfolioController@viewPortfolio');
+	Route::get('/viewmyportfolio',	'PortfolioController@viewMyPortfolio');
 
 	Route::get('profilepicture/{filename}/{id}',function($filename,$id)
 	{
@@ -79,5 +85,7 @@ Route::group(['middleware'=>'auth'],function(){
 	// MAIL
 	Route::get('/inbox',					'MailingController@index');
 	Route::get('/message',					'MailingController@viewMail');
+	Route::get('/composenew',				'MailingController@composeNew');
+	Route::post('/sendemail',				'MailingController@sendmail');
 
 });

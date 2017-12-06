@@ -177,6 +177,8 @@ body {
   overflow: hidden;
   border-radius: 50%;
   object-fit: fill!important;
+  background-size: cover;
+  background-position: center;
 }
 
 .circular--landscape:hover {
@@ -186,6 +188,8 @@ body {
   overflow: hidden;
   border-radius: 50%;
   object-fit: fill!important;
+  background-size: cover;
+  background-position: center;
 }
 
 .circular--landscape--medium {
@@ -209,6 +213,11 @@ body {
   object-fit: fill!important;
   background-size: cover;
   background-position: center;
+}
+
+.col-centered { 
+  float: none;
+  margin: 0 auto;
 }
 
  /* Dropdown Button */
@@ -402,6 +411,46 @@ body {
 
 .msg-unread {
 	font-weight: bold;
+}
+
+.portfolio_underlay {
+	height: 220px;
+	width: 360px;
+	background-size: cover;
+	background-repeat: no-repeat;
+	border-radius: 10px;
+	margin: 10px 10px;
+	display: block;
+	cursor: pointer;
+}
+
+.portfolio_overlay {
+	cursor: pointer;
+	color: white;
+	background-color: rgba(0,0,0,0.7);
+	position: absolute;
+	width: 100%;
+	border-radius: 10px;
+	height: 0;
+	margin-left: -15px;
+	opacity: 0;
+	transition: 0.3s ease;
+}
+
+.portfolio_underlay:hover .portfolio_overlay {
+	box-shadow: 0 0 15px black;
+	bottom: 0;
+	height: 100%;
+	opacity: 1.0;
+}
+
+.portfolio_overlay h3 {
+	font-family: Avant Garde, Avantgarde, Century Gothic, CenturyGothic, AppleGothic, sans-serif;
+	font-size: 20px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 500;
+	line-height: 15.4px;
 }
 
 .welcome-bg {

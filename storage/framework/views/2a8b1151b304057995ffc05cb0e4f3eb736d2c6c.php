@@ -50,7 +50,6 @@
         </div>
         <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
           <p><a href="<?php echo url('/createportfolio'); ?>"><i class="fa fa-plus"></i> Create new portfolio</a></p>
-          <p><a href="<?php echo url('/importportfolio'); ?>"><i class="fa fa-reply"></i> Import Portfolios</a></p>
         </div>
       </div>
   	</div>
@@ -61,6 +60,17 @@
 
 
   <?php echo $__env->make('layouts.bebas-inner-scripts', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+
+  <script>
+    
+    function viewPortfolio(port_id){
+
+      var url = '<?php echo url('/viewmyportfolio'); ?>'+'?portfolio='+port_id;
+
+      window.location.replace(url);
+
+    }
+  </script>
 
 </body>
 </html>

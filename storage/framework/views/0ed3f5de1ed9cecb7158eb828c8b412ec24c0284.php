@@ -23,7 +23,7 @@
   		<br><br>
       <div class="row">
         <div class="col-lg-2 col-md-2 col-xs-12 col-sm-12" style="border-right: 1px solid grey;">
-          <button class="btn btn-default">Compose New</button>
+          <button class="btn btn-default" onclick="composenew()">Compose New</button>
           <br><br>
           <p><a href="<?php echo url('/inbox'); ?>"><b>Inbox</b></a></p>
           
@@ -52,6 +52,14 @@
     function back(){
 
       var url = '<?php echo url('/inbox'); ?>';
+
+      window.location.replace(url);
+
+    }
+
+    function composenew(){
+
+      var url = '<?php echo url('/composenew'); ?>';
 
       window.location.replace(url);
 

@@ -23,7 +23,7 @@
   		<hr>
 
       <div class="row">
-        <div class="col-lg-2 col-md-5 col-sm-12 col-xs-12">
+        <div class="col-lg-2 col-md-5 col-sm-12 col-xs-12" onclick="editprofile()" style="cursor: pointer;">
             @if(Auth::user()->img)
                 <div class="circular--landscape center" style="background-image: url('{!! url('profilepicture/'.Auth::user()->img.'/'.Auth::user()->id) !!}');background-size: cover;background-position: center;">
                 </div>
@@ -62,6 +62,13 @@
 
 
   @include('layouts.bebas-inner-scripts')
+
+  <script>
+    function editprofile(){
+      var url = '{!! url('/editprofile') !!}';
+      window.location.replace(url);
+    }
+  </script>
 
 </body>
 </html>

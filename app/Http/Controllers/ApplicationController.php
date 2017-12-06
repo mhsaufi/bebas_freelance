@@ -137,6 +137,10 @@ class ApplicationController extends Controller
         Db::table('job_bebas')->where('job_id',$job_id)->update(['js_id'=>'6','job_client'=>$app_info->user_id]);
         Db::table('pay_bebas')->where('pay_id',$job_info->pay_id)->update(['client_id'=>$app_info->user_id]);
 
+        $mail = new MailingController;
+
+        $mail->mailConfirmAccept($$app_info->user_id,$job_info->job_name);
+
     }
 
 }

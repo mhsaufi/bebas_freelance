@@ -54,7 +54,6 @@
         <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
           <p><a href="{!! url('/portfolio') !!}"><i class="fa fa-briefcase"></i> My Portfolio</a></p>
           <p><a href="{!! url('/createportfolio') !!}"><i class="fa fa-plus"></i> Create new portfolio</a></p>
-          <p><a href="{!! url('/importportfolio') !!}"><i class="fa fa-reply"></i> Import Portfolios</a></p>
         </div>
       </div>
   	</div>

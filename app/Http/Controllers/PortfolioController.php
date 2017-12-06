@@ -159,4 +159,41 @@ class PortfolioController extends Controller
 
     	return view('portfolio.reviewportfolio',$data);
     }
+
+    public function viewPortfolio(Request $request){
+
+        $port_id = $request->input('portfolio');
+
+        $portfolio = Db::table('portfolio_user_bebas')
+                    ->join('users','portfolio_user_bebas.user_id','=','users.id')
+                    ->where('port_id',$port_id)->first();
+
+        $data['portfolio'] = $portfolio;
+
+        
+        $unr = new HomeController;
+        $data['unread'] = $unr->getUnread();
+
+        return view('portfolio.viewportfolio',$data);
+
+    }
+
+    public function viewMyPortfolio(Request $request){
+
+        $port_id = $request->input('portfolio');
+
+        $portfolio = Db::table('portfolio_user_bebas')
+                    ->join('users','portfolio_user_bebas.user_id','=','users.id')
+                    ->where('port_id',$port_id)->first();
+
+        $data['portfolio'] = $portfolio;
+
+        
+        $unr = new HomeController;
+        $data['unread'] = $unr->getUnread();
+
+        return view('portfolio.viewmyportfolio',$data);
+
+
+    }
 }
