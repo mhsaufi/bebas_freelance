@@ -235,7 +235,7 @@ class JobController extends Controller
         $job_id = $request->input('job');
 
         $job = Db::table('job_bebas')
-                    ->select('job_bebas.job_id','job_bebas.job_name','job_bebas.job_creator','users.email','job_bebas.type_id','type_job_bebas.title','job_bebas.pay_id','pay_bebas.pay_amount','pay_bebas.ps_id','job_bebas.js_id','job_bebas.job_details','job_bebas.job_due','job_bebas.job_attach_id','attachment_bebas.attach_title','job_bebas.created_at','job_bebas.updated_at','job_bebas.client_rated','job_bebas.job_client')
+                    ->select('job_bebas.job_id','job_bebas.job_name','job_bebas.job_creator','users.email','job_bebas.type_id','type_job_bebas.title','job_bebas.pay_id','pay_bebas.pay_amount','pay_bebas.ps_id','job_bebas.js_id','job_bebas.job_details','job_bebas.job_due','job_bebas.job_attach_id','attachment_bebas.attach_title','job_bebas.created_at','job_bebas.updated_at','job_bebas.client_rated','job_bebas.job_client','job_bebas.job_final_attach_id')
                     ->join('type_job_bebas','job_bebas.type_id','=','type_job_bebas.type_id')
                     ->join('pay_bebas','job_bebas.pay_id','=','pay_bebas.pay_id')
                     ->join('attachment_bebas','job_bebas.job_attach_id','=','attachment_bebas.attach_id')
@@ -270,7 +270,21 @@ class JobController extends Controller
         $unr = new HomeController;
         $data['unread'] = $unr->getUnread();
 
-        return view('pages.progressoverview',$data);
+        if($job->js_id == 6){
+
+            return view('pages.progressoverview',$data);
+        }
+        if($job->js_id == 3)
+        {
+
+            if($job->job_final_attach_id <> ''){
+                $attachments = Db::table('attachment_bebas')->where('attach_id',$job->job_final_attach_id)->first();
+
+                $data['attachments'] = $attachments;
+            }
+
+            return view('pages.progressoverviewfinish',$data);
+        }
 
     }
 

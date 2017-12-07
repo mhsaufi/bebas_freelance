@@ -139,7 +139,7 @@ class ApplicationController extends Controller
 
         $mail = new MailingController;
 
-        $mail->mailConfirmAccept($$app_info->user_id,$job_info->job_name);
+        $mail->mailConfirmAccept($app_info->user_id,$job_info->job_name);
 
     }
 

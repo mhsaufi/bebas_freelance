@@ -67,7 +67,9 @@
         </div>
 
         <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12">
+
             <br><br>
+            <?php if($job->js_id != 3): ?>
             <button class="btn btn-warning" onclick="issues()"><i class="fa fa-warning"></i> Report Issues</button>
             
             <?php if($job->ps_id == 1): ?>
@@ -116,6 +118,10 @@
 
               <?php endif; ?>
             </div>
+
+            <?php else: ?>
+              <h4>You already finished this job</h4>
+            <?php endif; ?>
         </div>
 
       </div>

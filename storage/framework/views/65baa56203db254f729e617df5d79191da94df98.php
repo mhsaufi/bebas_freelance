@@ -75,7 +75,7 @@
         <?php $__currentLoopData = $posted; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $post): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
           <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 job_info_underlay" 
           style="background-image: url('<?php echo url('attachments/'.$post->job_attach_id.'/'.$post->attach_title); ?>')"
-          onclick="overviewJob('<?php echo $post->job_id; ?>','<?php echo $post->js_id; ?>')">
+          onclick="overviewJob(<?php echo e($post->job_id); ?>,<?php echo e($post->js_id); ?>)">
             <div class="job_info_overlay text-center">
               <?php if($post->js_id == 1): ?>
                 <div style="background-color: rgba(0,0,50,0.7);color: white;overflow: hidden;margin-bottom: 20px;">
@@ -133,7 +133,7 @@
       if(js_id == 1){
         url = '<?php echo url('/joboverview'); ?>'+'?job='+job_id;
       }
-      if(js_id == 6){
+      if(js_id == 6 || js_id == 3){
         url = '<?php echo url('/progressoverview'); ?>'+'?job='+job_id;
       }
 

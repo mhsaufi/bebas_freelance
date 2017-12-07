@@ -75,7 +75,7 @@
         @foreach($posted as $post)
           <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 job_info_underlay" 
           style="background-image: url('{!! url('attachments/'.$post->job_attach_id.'/'.$post->attach_title) !!}')"
-          onclick="overviewJob('{!! $post->job_id !!}','{!! $post->js_id !!}')">
+          onclick="overviewJob({{ $post->job_id }},{{ $post->js_id }})">
             <div class="job_info_overlay text-center">
               @if($post->js_id == 1)
                 <div style="background-color: rgba(0,0,50,0.7);color: white;overflow: hidden;margin-bottom: 20px;">
@@ -133,7 +133,7 @@
       if(js_id == 1){
         url = '{!! url('/joboverview') !!}'+'?job='+job_id;
       }
-      if(js_id == 6){
+      if(js_id == 6 || js_id == 3){
         url = '{!! url('/progressoverview') !!}'+'?job='+job_id;
       }
 

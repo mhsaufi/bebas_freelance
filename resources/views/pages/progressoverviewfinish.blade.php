@@ -22,7 +22,7 @@
   		<h3><a href="{!! url('/myjob') !!}">My Jobs</a> > {!! $job->job_name !!}</h3>
       <br><br>
       <div class="row">
-        <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12" style="border-right: 1px solid #bdbdbd;overflow: hidden">
+        <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12" style="border-right: 1px solid #bdbdbd;overflow: hidden;">
 
             <img src="{!! url('attachments/'.$job->job_attach_id.'/'.$job->attach_title) !!}" width="100%">
             <br>
@@ -82,47 +82,35 @@
                         @endfor
                       </div>
                 @endif
-              <br>
-              <button class="btn btn-warning" onclick="issues()"><i class="fa fa-warning"></i> Response Issues</button>
 
-              <button class="btn btn-success" onclick="complete('{!! $job->job_id !!}')"><i class="fa fa-check"></i> Update Complete</button>
-              <br><br>
-              <p>Status : <b>In progress</b></p>
-              <br><br>
-              <div id="summerarea" style="display: none;">
-                <div id="summernote"></div>
-                <div class="row text-center">
-                  <button class="btn btn-default" onclick="postissue('{!! $job->job_id !!}')">Post</button>
-                </div>
-              </div>
-              <br>
-              <div class="row" style="padding: 0 15px;">
-                @if($issue_count == 0)
+                <br><br>
+                <p>This job has been completed</p>
+                <br><br>
+                <?php
 
-                  <p>No issue arised yet</p>
+                  if($job->job_final_attach_id != ''){
 
-                @else
+                    $attach_arr = explode("|",$attachments->attach_title);
 
-                  @foreach($issues as $issue)
+                  }
 
-                    <div>
-                      @if($issue->img != '')
-                          <span class="circular--landscape--micro" style="background-image: url('{!! url('profilepicture/'.$issue->img.'/'.$issue->id) !!}');">
-                          </span>
-                      @else
-                          <span class="circular--landscape--micro" style="background-image: url({!! asset('bebas_asset/image/avatar.png') !!});"></span>
-                      @endif
-                      <br>
-                      <span><b>{{ $issue->name }}</b></span>
-                      <br><br>
-                      {!! $issue->issue_content !!}
+                  $i = 1;
 
-                    </div>
+                ?>
 
-                  @endforeach
+                @if($job->job_final_attach_id != '')
+
+                <p>Attchments for {!! $job->job_name !!} : </p>
+                <br>
+                @foreach($attach_arr as $arr)
+
+                  {{ $i }} - <a href="{{ url('/download/'.$attachments->attach_id.'/'.$arr) }}">{{ $arr }}</a><br><br>
+
+                  <?php  $i++; ?>
+
+                @endforeach
 
                 @endif
-              </div>
         </div>
 
       </div>

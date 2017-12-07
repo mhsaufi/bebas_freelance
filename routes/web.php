@@ -40,6 +40,13 @@ Route::group(['middleware'=>'auth'],function(){
 	    return Storage::get('attachments/'.$id.'/'.$filename);
 	});
 
+	Route::get('download/{id}/{filename}', function ($id,$filename)
+	{
+	    // return Storage::get('attachments/'.$id.'/'.$filename);
+		// return Image::make(storage_path('attachments/'.$id.'/'.$filename))->response();
+		return response()->download(storage_path('app/attachments/'.$id.'/'.$filename),$filename);
+	});
+
 	Route::get('portfolios/{id}/{filename}', function ($id,$filename)
 	{
 	    return Storage::get('portfolios/'.$id.'/'.$filename);
