@@ -19,7 +19,27 @@
   		<br><br>
   		<h3>Get Jobs</h3>
   		<hr>
+      <div class="row">
+        <div class="col-lg-4 col-md-9 col-sm-12 col-xs-12">
+          <p>Category</p>
+          <select class="form-control" name="category" id="category">
+            <?php if($cond == 0): ?>
+              <option value="0" selected="selected">All</option>
+            <?php else: ?>
+              <option value="0">All</option>
+            <?php endif; ?>
 
+            <?php $__currentLoopData = $job_types; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $type): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            <?php if($cond == $type->type_id): ?>
+              <option value="<?php echo $type->type_id; ?>" selected="selected"><?php echo $type->title; ?></option>
+            <?php else: ?>
+              <option value="<?php echo $type->type_id; ?>"><?php echo $type->title; ?></option>
+            <?php endif; ?>
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+          </select>
+        </div>
+      </div>
+      <br><br>
       <div class="row">
 
         <?php if($jobs_count != 0): ?>
@@ -50,6 +70,10 @@
   	</div>
   </section>
 
+  <br><br><br><br>
+
+  <hr>
+
   <?php echo $__env->make('layouts.bebas-inner-scripts', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 
   <script>
@@ -58,6 +82,16 @@
       // alert(id);
       window.location.replace(url);
     }
+
+    $('#category').change(function(){
+
+      var cond = $('#category :selected').val();
+
+      var url = '<?php echo url('/getjobs'); ?>'+'?category='+cond;
+
+      window.location.replace(url);
+
+    });
   </script>
 
 </body>

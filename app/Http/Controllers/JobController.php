@@ -104,16 +104,34 @@ class JobController extends Controller
 
         $jobs_count = Db::table('job_bebas')->where('job_bebas.js_id',1)->count();
 
+        $cond = $request->input('category');
+
+        if($cond == null)
+        {
+            $cond = 0;
+        }
+
         if($jobs_count <> 0){
 
-            $jobs = Db::table('job_bebas')
+            $jobs_query = Db::table('job_bebas')
                     ->select('job_bebas.job_id','job_bebas.job_name','job_bebas.job_creator','users.email','job_bebas.type_id','type_job_bebas.title','job_bebas.pay_id','pay_bebas.pay_amount','job_bebas.js_id','job_bebas.job_details','job_bebas.job_due','job_bebas.job_attach_id','attachment_bebas.attach_title','job_bebas.created_at','job_bebas.updated_at')
                     ->where('job_bebas.js_id',1)
                     ->join('type_job_bebas','job_bebas.type_id','=','type_job_bebas.type_id')
                     ->join('pay_bebas','job_bebas.pay_id','=','pay_bebas.pay_id')
                     ->join('attachment_bebas','job_bebas.job_attach_id','=','attachment_bebas.attach_id')
                     ->join('users','job_bebas.job_creator','=','users.id')
-                    ->get();
+                    ->latest('job_bebas.created_at')
+                    ->where('job_bebas.job_creator','!=',Auth::id());
+
+            // echo "HOHO : ".$cond;
+
+            if($cond <> 0){
+
+                $jobs_query = $jobs_query->where('job_bebas.type_id',$cond);
+
+            }
+
+            $jobs = $jobs_query->get();
 
             foreach($jobs as $job){
 
@@ -126,7 +144,11 @@ class JobController extends Controller
             $data['jobs'] = $jobs;
         }
 
+        $job_types = Db::table('type_job_bebas')->get();
+
+        $data['job_types'] = $job_types;
         $data['jobs_count'] = $jobs_count;
+        $data['cond'] = $cond;
 
 
         $unr = new HomeController;

@@ -33,7 +33,18 @@
 
         </div>
         <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-          
+          <?php $unrated_value = 5 - $portfolio->rating;  $j = 1;?>
+          <div style="margin-right: 10px;color: grey;">
+              @for($i=0;$i<$portfolio->rating;$i++)
+                  <span><i class="fa fa-star fa-2x rate rate-checked"></i></span>
+                  <?php  $j++; ?>
+              @endfor
+
+              @for($k=0;$k<$unrated_value;$k++)
+                  <span><i class="fa fa-star fa-2x rate"></i></span>
+                  <?php  $j++; ?>
+              @endfor
+          </div>
           <h4><i class="fa fa-user"></i> {{ $portfolio->email }}</h4>
           <h4><i class="fa fa-briefcase"></i> {{ $portfolio->portfolio_name }} </h4>
           <h4><i class="fa fa-phone"></i> {{ $portfolio->phone }} </h4>
@@ -59,6 +70,9 @@
 
 
   @include('layouts.bebas-inner-scripts')
+
+  <script src="{!! asset('bebas_asset/js/bebas-rate.js') !!}"></script>
+  
   <script>
     $(document).ready(function(){
     });

@@ -38,8 +38,23 @@
               @else
                   <span class="circular--landscape--medium text-center" style="background-image: url({!! asset('bebas_asset/image/avatar.png') !!});"></span>
               @endif
+              <br>
+              <?php $unrated_value = 5 - $port->rating;  $j = 1;?>
+              <div style="margin-right: 10px;color: grey;">
+                  @for($i=0;$i<$port->rating;$i++)
+                      <span><i class="fa fa-star fa-2x rate rate-checked"></i></span>
+                      <?php  $j++; ?>
+                  @endfor
+
+                  @for($k=0;$k<$unrated_value;$k++)
+                      <span><i class="fa fa-star fa-2x rate"></i></span>
+                      <?php  $j++; ?>
+                  @endfor
+              </div>
             </center>
             <!-- <p>{!! $port->created_at !!}</p> -->
+              
+
           </div>
         </div>
 
@@ -55,6 +70,8 @@
 
 
   @include('layouts.bebas-inner-scripts')
+
+  <script src="{!! asset('bebas_asset/js/bebas-rate.js') !!}"></script>
 
   <script>
     function viewJob(port_id){

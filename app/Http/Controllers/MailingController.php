@@ -157,6 +157,15 @@ class MailingController extends Controller
         $user_email = $request->input('email');
         $subject = $request->input('subject');
 
+        $user_info_count = Db::table('users')->where('email',$user_email)->count();
+
+        if($user_info_count <> 0){
+
+            $user_info = Db::table('users')->where('email',$user_email)->first();
+
+            Db::table('bebas_message')->insert(['recipient'=>$user_info->id,'msg_subject'=>$subject,'msg_content'=>$mail_content,'sender'=>Auth::id(),'msg_status'=>1]);
+        }
+
         Mail::send('mail.bebas_mail',['mail'=>$mail_content], function ($message) use ($subject,$user_email){
 
             $message->from('bebas@customerservice.com.my', 'BEBAS');

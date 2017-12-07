@@ -19,7 +19,27 @@
   		<br><br>
   		<h3>Get Jobs</h3>
   		<hr>
+      <div class="row">
+        <div class="col-lg-4 col-md-9 col-sm-12 col-xs-12">
+          <p>Category</p>
+          <select class="form-control" name="category" id="category">
+            @if($cond == 0)
+              <option value="0" selected="selected">All</option>
+            @else
+              <option value="0">All</option>
+            @endif
 
+            @foreach($job_types as $type)
+            @if($cond == $type->type_id)
+              <option value="{!! $type->type_id !!}" selected="selected">{!! $type->title !!}</option>
+            @else
+              <option value="{!! $type->type_id !!}">{!! $type->title !!}</option>
+            @endif
+            @endforeach
+          </select>
+        </div>
+      </div>
+      <br><br>
       <div class="row">
 
         @if($jobs_count != 0)
@@ -50,6 +70,10 @@
   	</div>
   </section>
 
+  <br><br><br><br>
+
+  <hr>
+
   @include('layouts.bebas-inner-scripts')
 
   <script>
@@ -58,6 +82,16 @@
       // alert(id);
       window.location.replace(url);
     }
+
+    $('#category').change(function(){
+
+      var cond = $('#category :selected').val();
+
+      var url = '{!! url('/getjobs') !!}'+'?category='+cond;
+
+      window.location.replace(url);
+
+    });
   </script>
 
 </body>
